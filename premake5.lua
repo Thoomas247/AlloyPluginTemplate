@@ -20,7 +20,7 @@ IncludeDirs = {}
 
 IncludeDirs["AlloyCore"] = "AlloyCore/lib/AlloyCore/src"
 IncludeDirs["AlloyCoreExt"] = "AlloyCore/lib/AlloyCore/external"
-IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/src"
+IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/src/" .. PLUGIN_NAME 
 IncludeDirs["External"] = "plugin/" .. PLUGIN_NAME .. "/external"
 IncludeDirs["Test"] = "plugin/Test/src"
 
@@ -61,6 +61,9 @@ project (PLUGIN_NAME)
 	targetdir ("bin/" .. OUTPUT_DIR .. "/%{prj.name}")
 	objdir ("int/" .. OUTPUT_DIR .. "/%{prj.name}")
 
+	os.mkdir(IncludeDirs["Plugin"])
+	os.mkdir(IncludeDirs["External"])
+
 	files
 	{
 		"plugin/" .. PLUGIN_NAME .. "/src/**.h",
@@ -99,6 +102,8 @@ project "Test"
 
 	targetdir ("bin/" .. OUTPUT_DIR .. "/%{prj.name}")
 	objdir ("int/" .. OUTPUT_DIR .. "/%{prj.name}")
+
+	os.mkdir(IncludeDirs["Test"])
 	
 	files
 	{
