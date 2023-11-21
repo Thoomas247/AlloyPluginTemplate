@@ -20,7 +20,7 @@ IncludeDirs = {}
 
 IncludeDirs["AlloyCore"] = "AlloyCore/lib/AlloyCore/src"
 IncludeDirs["AlloyCoreExt"] = "AlloyCore/lib/AlloyCore/external"
-IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/src/" .. PLUGIN_NAME 
+IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/src"
 IncludeDirs["External"] = "plugin/" .. PLUGIN_NAME .. "/external"
 IncludeDirs["Test"] = "plugin/Test/src"
 
