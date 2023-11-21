@@ -18,6 +18,8 @@ workspace (PLUGIN_NAME .. "_workspace")
 -- Include Directories Table --
 IncludeDirs = {}
 
+IncludeDirs["AlloyCore"] = "AlloyCore/lib/AlloyCore/src"
+IncludeDirs["AlloyCoreExt"] = "AlloyCore/lib/AlloyCore/external"
 IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/src"
 IncludeDirs["External"] = "plugin/" .. PLUGIN_NAME .. "/external"
 IncludeDirs["Test"] = "plugin/Test/src"
@@ -69,6 +71,8 @@ project (PLUGIN_NAME)
 
 	includedirs
 	{
+		IncludeDirs["AlloyCore"],
+		IncludeDirs["AlloyCoreExt"],
 		IncludeDirs["Plugin"],
 		IncludeDirs["External"]
 	}
@@ -106,6 +110,8 @@ project "Test"
 
 	includedirs
 	{
+		IncludeDirs["AlloyCore"],
+		IncludeDirs["AlloyCoreExt"],
 		IncludeDirs["Plugin"],
 		IncludeDirs["External"],
 		IncludeDirs["Test"]
