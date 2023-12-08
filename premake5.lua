@@ -61,8 +61,8 @@ project (PLUGIN_NAME)
 	targetdir ("bin/" .. OUTPUT_DIR .. "/%{prj.name}")
 	objdir ("int/" .. OUTPUT_DIR .. "/%{prj.name}")
 
-	os.mkdir("plugin/" .. PLUGIN_NAME .. "/src")
-	os.mkdir("plugin/" .. PLUGIN_NAME .. "/include")
+	os.mkdir("plugin/" .. PLUGIN_NAME .. "/src/" .. PLUGIN_NAME)
+	os.mkdir("plugin/" .. PLUGIN_NAME .. "/include/" .. PLUGIN_NAME)
 	os.mkdir(IncludeDirs["External"])
 
 	files
