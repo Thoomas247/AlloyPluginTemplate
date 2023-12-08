@@ -125,7 +125,7 @@ project "Test"
 
 	links
 	{
-		"AlloyCore/bin/" .. OUTPUT_DIR .. "/AlloyCore.lib"
+		"AlloyCore/bin/" .. OUTPUT_DIR .. "/AlloyCore/AlloyCore.lib"
 	}
 
 	linkoptions
