@@ -18,9 +18,9 @@ workspace (PLUGIN_NAME .. "_workspace")
 -- Include Directories Table --
 IncludeDirs = {}
 
-IncludeDirs["AlloyCore"] = "AlloyCore/lib/AlloyCore/src"
+IncludeDirs["AlloyCore"] = "AlloyCore/lib/AlloyCore/include"
 IncludeDirs["AlloyCoreExt"] = "AlloyCore/lib/AlloyCore/external"
-IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/src"
+IncludeDirs["Plugin"] = "plugin/" .. PLUGIN_NAME .. "/include"
 IncludeDirs["External"] = "plugin/" .. PLUGIN_NAME .. "/external"
 IncludeDirs["Test"] = "plugin/Test/src"
 
@@ -61,7 +61,8 @@ project (PLUGIN_NAME)
 	targetdir ("bin/" .. OUTPUT_DIR .. "/%{prj.name}")
 	objdir ("int/" .. OUTPUT_DIR .. "/%{prj.name}")
 
-	os.mkdir(IncludeDirs["Plugin"])
+	os.mkdir("plugin/" .. PLUGIN_NAME .. "/src")
+	os.mkdir("plugin/" .. PLUGIN_NAME .. "/include")
 	os.mkdir(IncludeDirs["External"])
 
 	files
@@ -107,10 +108,10 @@ project "Test"
 	
 	files
 	{
-		"plugin/Test/src/**.h",
-		"plugin/Test/src/**.c",
-		"plugin/Test/src/**.hpp",
-		"plugin/Test/src/**.cpp"
+		IncludeDirs["Test"] .. "/**.h",
+		IncludeDirs["Test"] .. "/**.c",
+		IncludeDirs["Test"] .. "/**.hpp",
+		IncludeDirs["Test"] .. "/**.cpp"
 	}
 
 	includedirs
@@ -120,6 +121,11 @@ project "Test"
 		IncludeDirs["Plugin"],
 		IncludeDirs["External"],
 		IncludeDirs["Test"]
+	}
+
+	links
+	{
+		"AlloyCore/bin/" .. OUTPUT_DIR .. "/AlloyCore.lib"
 	}
 
 	linkoptions
