@@ -15,6 +15,9 @@ workspace (PLUGIN_NAME .. "_workspace")
 		"Dist"
 	}
 
+-- Include External Premake Files (Uncomment if you want to use external libraries) --
+--include ("plugin/" .. PLUGIN_NAME .. "/external")
+
 -- Include Directories Table --
 IncludeDirs = {}
 
@@ -31,22 +34,6 @@ defines
 	"NOGDI",				   						-- WinGDI.h defines dumb macros, remove it
 	"_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING" -- spdlog causes warnings, suppress them
 }
-
--- Config Specific Settings --
-filter "configurations:Debug"
-	defines "AL_DEBUG"
-	runtime "Debug"
-	symbols "On"
-
-filter "configurations:Release"
-	defines "AL_RELEASE"
-	runtime "Release"
-	optimize "On"
-
-filter "configurations:Dist"
-	defines "AL_DIST"
-	runtime "Release"
-	optimize "On"
 
 -- Plugin Project --
 project (PLUGIN_NAME)
@@ -65,6 +52,11 @@ project (PLUGIN_NAME)
 	os.mkdir("plugin/" .. PLUGIN_NAME .. "/include/" .. PLUGIN_NAME)
 	os.mkdir(IncludeDirs["External"])
 
+	links
+	{
+		-- if compiling external libs using premake, include their project names here to link
+	}
+
 	files
 	{
 		"plugin/" .. PLUGIN_NAME .. "/src/**.h",
@@ -81,15 +73,31 @@ project (PLUGIN_NAME)
 		IncludeDirs["External"]
 	}
 
-    -- system specific macro definitions
+
+	filter "configurations:Debug"
+		defines "AL_DEBUG"
+		runtime "Debug"
+		symbols "On"
+	
+	filter "configurations:Release"
+		defines "AL_RELEASE"
+		runtime "Release"
+		optimize "On"
+	
+	filter "configurations:Dist"
+		defines "AL_DIST"
+		runtime "Release"
+		optimize "On"
+
+    	-- system specific macro definitions
 	filter "system:Windows"
 		defines "AL_SYSTEM_WINDOWS"
 
 	filter "system:Unix"
-      	defines "AL_SYSTEM_LINUX"
+      		defines "AL_SYSTEM_LINUX"
 
    	filter "system:Mac"
-      	defines "AL_SYSTEM_MAC"
+      		defines "AL_SYSTEM_MAC"
 
 -- Test Project --
 project "Test"
@@ -105,6 +113,12 @@ project "Test"
 	objdir ("int/" .. OUTPUT_DIR .. "/%{prj.name}")
 
 	os.mkdir(IncludeDirs["Test"])
+
+	links
+	{
+		"AlloyCore/bin/" .. OUTPUT_DIR .. "/AlloyCore/AlloyCore.lib",
+		PLUGIN_NAME
+	}
 	
 	files
 	{
@@ -123,12 +137,22 @@ project "Test"
 		IncludeDirs["Test"]
 	}
 
-	links
-	{
-		"AlloyCore/bin/" .. OUTPUT_DIR .. "/AlloyCore/AlloyCore.lib"
-	}
-
 	linkoptions
 	{ 
 		"-IGNORE:4099"  -- hide .pdb file missing warning
 	}
+
+	filter "configurations:Debug"
+		defines "AL_DEBUG"
+		runtime "Debug"
+		symbols "On"
+	
+	filter "configurations:Release"
+		defines "AL_RELEASE"
+		runtime "Release"
+		optimize "On"
+	
+	filter "configurations:Dist"
+		defines "AL_DIST"
+		runtime "Release"
+		optimize "On"
